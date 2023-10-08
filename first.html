@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+    <!-- <link rel="stylesheet" href="first.css"> -->
+</head>
+
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Red Hat Display', sans-serif;
+  }
+
+  html,
+      body {
+        font-size: 62.5%;
+        height: 100%;
+        display:flex;
+       justify-content: center;
+       align-items: center;
+       flex-flow: column;
+      }
+
+   .box{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow:column;
+    height: 20rem;
+    width:27rem;
+    background-color: #B0DAFF;
+    border-radius:1rem;
+   } 
+
+   .form{
+    display:flex;
+       justify-content: space-between;
+       align-items: center;
+       flex-flow: column;
+   }
+ .heading{
+    font-size: 4rem;
+    margin-bottom:3rem;
+    font-weight: 500;
+     letter-spacing: 0.3rem;
+     text-transform: uppercase;
+    
+ }
+.submit-button{
+    margin:1rem 0;
+    height:2.5rem ;
+    width:55%;
+    border-radius: 1rem;
+    border-style: none;
+    background-color: black;
+    color:#B0DAFF;
+}
+.inputbox{
+    margin:2.5rem 0;
+    height:2.5rem ;
+    border-radius:0.4rem;
+    border-style: none;
+    width:100%;
+    padding:0 1rem;
+}
+
+@keyframes move{
+    from{
+        transform: translateX(-2rem);
+    }
+    to{
+        transform: translateX(2rem);
+    }
+  }
+
+.icon{
+    font-size:4rem;
+    animation-name: move;
+  animation-duration:1.5s;
+  animation-iteration-count: infinite;
+ animation-direction: alternate;
+}
+
+</style>
+<body>
+  <h1 class="heading">Enter City</h1>
+    <div class="box">
+      <div class="icon">
+        <i class="fa-solid fa-city City-icon"></i>
+      </div>
+       
+        <form action="/"method="post" class="form">
+            <input type="text"  class ="inputbox" name="city_name" id="city" placeholder="City Name">
+            <input type="submit" value="Enter" class="submit-button">
+        </form>
+    </div>
+
+</body>
+</html>
