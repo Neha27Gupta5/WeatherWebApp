@@ -8,17 +8,28 @@ let fetch;
 })();
 
 const fs = require('fs');
+const path = require('path'); // Import the 'path' module for handling file paths
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/first.html');
+    res.sendFile(path.join(__dirname, 'first.html')); // Use path.join to construct file paths
 });
 
-const indexfile = fs.readFileSync('index.html', 'utf-8');
+let indexfile; // Declare 'indexfile' variable outside of the route handler
+
+// Read 'index.html' file asynchronously
+fs.readFile(path.join(__dirname, 'index.html'), 'utf-8', (err, data) => {
+    if (err) {
+        console.error('Error reading index.html:', err);
+        return;
+    }
+    indexfile = data;
+});
 
 const replaceVal = (tempval, orval) => {
+    if (!tempval || !orval) return ''; // Handle potential null or undefined values
     let temp = tempval.replace("{%tempval%}", orval.main.temp);
     temp = temp.replace("{%tempmin%}", orval.main.temp_min);
     temp = temp.replace("{%tempmax%}", orval.main.temp_max);
@@ -32,6 +43,11 @@ app.post('/', function(req, res) {
 
     if (!fetch) {
         res.status(500).send('Error loading fetch module');
+        return;
+    }
+
+    if (!indexfile) {
+        res.status(500).send('Error reading index.html');
         return;
     }
 
