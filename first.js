@@ -26,7 +26,7 @@ const replaceVal = (tempval, orval) => {
 app.post('/',function(req,res){
   
     var city=req.body.city_name;
-    // console.log(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=374cb2352e308a68fb4eaa4d5a6f3d61&units=metric`);
+  
       requests(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=374cb2352e308a68fb4eaa4d5a6f3d61&units=metric`)
       .on("data",(chunk)=>{
         const objdata=JSON.parse(chunk);
