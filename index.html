@@ -5,143 +5,209 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather WebApp</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Red Hat Display', sans-serif;
+    }
 
- <style>
-  
-  /* @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap');  */
+    html {
+      font-size: 62.5%;
+    }
 
- *{
-padding: 0;
-  margin: 0;
-  font-family: 'Red Hat Display', sans-serif;
-}
-html{
-  font-size: 62.5%;
-}
-body{
-  display: flex;
-  justify-content: center;
-  align-items:center;
-  height:100vh;
-  width:100vw;
-}
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      flex-direction: column;
+      background-color: #f0f4f8;
+    }
 
-.box{
-  background-color: #B0DAFF;
-  height:27rem;
-  width:27rem;
-  border-radius:1rem;
-  position: relative;
- 
-}
-.weather{
-  padding:0.4rem 0;
-  text-align: center;
-  font-size:5rem;
-  animation-name: size;
-  animation-duration:0.8s;
-  animation-iteration-count: infinite;
-  /* transition-duration:1s; */
-  animation-direction: alternate;
-  
-}
-.info{
-  text-align: center;
-  font-size:1.5rem ;
-}
-h2,h1,h3,p{
-  padding:0.5rem 0;
-}
-@keyframes size{
-from{
-  transform:scale(0.5,0.5);
-  
-}
-to{
-  transform:scale(1,1);
-  
-}
-}
-@keyframes move{
-  from{
-      transform: translateX(-1rem);
-  }
-  to{
-      transform: translateX(1rem);
-  }
-}
-.fa-street-view{
-  display: inline-block;
-  animation-name: move;
-  animation-duration:2s;
-  animation-iteration-count: infinite;
- animation-direction: alternate;
-}
-.date{
-  color:rgb(197, 188, 188)
-}
-</style> 
-<link rel="stylesheet" href="style.css">
+    .box {
+      background-color: #B0DAFF;
+      height: 35rem;
+      width: 25rem;
+      border-radius: 1rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .weather {
+      padding: 0.4rem 0;
+      text-align: center;
+      font-size: 6rem;
+      animation-name: size;
+      animation-duration: 0.8s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    .info {
+      text-align: center;
+      font-size: 1.5rem;
+      width: 100%;
+    }
+
+    h2,
+    h1,
+    h3,
+    p {
+      padding: 0.5rem 0;
+    }
+
+    .info p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+
+    .info p i {
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    @keyframes size {
+      from {
+        transform: scale(0.5, 0.5);
+      }
+
+      to {
+        transform: scale(1, 1);
+      }
+    }
+
+    .fa-street-view {
+      display: inline-block;
+      animation-name: move;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    .date {
+      color: rgb(197, 188, 188)
+    }
+
+    .weather-icon {
+      font-size: 2rem;
+      color: #FEFF86;
+      margin-right: 0.5rem;
+    }
+
+    .back-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #45a049;
+    }
+
+    .back-button:focus {
+      outline: none;
+    }
+  </style>
 </head>
 
 <body>
   <div class="box">
     <div class="weather">
-      <i class="fa-solid fa-sun" style="color:#FEFF86"></i>
+      <!-- Weather icon will be dynamically updated based on the weather description -->
+      <i class="fa-solid fa-sun" style="color:#FEFF86" id="weather-icon"></i>
     </div>
 
     <div class="info">
       <h2 class="location">
-        <i class="fa-solid fa-street-view"></i><p>{%location%}, {%country%}</p>
+        <i class="fa-solid fa-street-view"></i>
+        <p style="font-size: 2rem;">{%location%}, {%country%}</p>
       </h2>
-      <p id="date">WED |OCT 23| 10:49AM</p>
-      <h1 class="temp">{%tempval%}</h1>
-      <h3 class="tempmin_max">Min {%tempmin%} | Max {%tempmax%}</h3>
+      <p id="date">WED | OCT 23 | 10:49AM</p>
+      <h1 class="temp">
+        <i class="fa-solid fa-thermometer-half"></i> {%tempval%}°C
+      </h1>
+      <p><i class="fa-solid fa-tint"></i> Humidity: {%humidity%}%</p>
+      <p><i class="fa-solid fa-wind"></i> Wind Speed: {%windspeed%} m/s</p>
+      <p><i class="fa-solid fa-cloud-sun"></i> Description: {%description%}</p>
+    </div>
 
-      
+    <!-- Back Button -->
+    <button class="back-button" onclick="goBack()">Go Back</button>
   </div>
-  </div>
+
   <script>
-  
-const getcurrday = () => {
-  var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    const getcurrday = () => {
+      var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+      let currentTime = new Date();
+      let day = weekday[currentTime.getDay()];
+      return day;
+    };
 
-  let currentTime = new Date();
-  let day = weekday[currentTime.getDay()];
-  return day;
-};
+    const getCurrTime = () => {
+      var months = [
+        "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
+      ];
+      var now = new Date();
+      var month = now.getMonth() + 1;
+      var date = now.getDate();
 
-const getCurrTime = () => {
-  var months = [
-    "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
-  ];
-  var now = new Date();
-  var month = now.getMonth() + 1;
-  var date = now.getDate();
+      let hours = now.getHours();
+      let mins = now.getMinutes();
 
-  let hours = now.getHours();
-  let mins = now.getMinutes();
+      let period = "AM";
+      if (hours > 11) {
+        period = "PM";
+        if (hours > 12) hours -= 12;
+      }
+      if (mins < 10) {
+        mins = "0" + mins;
+      }
+      return `${month} | ${date} | ${hours}:${mins} ${period}`;
+    };
 
-  let period = "AM";
-  if (hours > 11) {
-    period = "PM";
-    if (hours > 12) hours -= 12;
-  }
-  if (mins < 10) {
-    mins = "0" + mins;
-  }
-  return `${month} | ${date} | ${hours}:${mins} ${period}`;
-};
+    const curdate = document.getElementById("date");
+    curdate.innerHTML = getcurrday() + " | " + getCurrTime();
 
-const curdate = document.getElementById("date");
-curdate.innerHTML = getcurrday() + " | " + getCurrTime();
-;
-  
- </script>
+    // Example of updating weather icon based on condition
+    const updateWeatherIcon = (description) => {
+      const weatherIcon = document.getElementById("weather-icon");
+      if (description.includes('cloud')) {
+        weatherIcon.className = "fa-solid fa-cloud";
+        weatherIcon.style.color = "#b0b0b0";
+      } else if (description.includes('rain')) {
+        weatherIcon.className = "fa-solid fa-cloud-showers-heavy";
+        weatherIcon.style.color = "#00f";
+      } else if (description.includes('clear')) {
+        weatherIcon.className = "fa-solid fa-sun";
+        weatherIcon.style.color = "#FEFF86";
+      } else {
+        weatherIcon.className = "fa-solid fa-smog";
+        weatherIcon.style.color = "#808080";
+      }
+    };
 
- 
+    // Function to go back to the previous page (from history)
+    function goBack() {
+      window.history.back(); // Takes the user back to the previous page in history
+    }
+  </script>
 </body>
 
- 
 </html>
